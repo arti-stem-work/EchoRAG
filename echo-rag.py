@@ -209,8 +209,8 @@ st.caption("Enterprise-minded prototype: text + audio ingestion → vector store
 with st.sidebar:
     st.header("Configuration")
     persist = st.checkbox("Persist Chroma to disk (CHROMA_PERSIST_DIR)", value=True)
-    model_choice = st.selectbox("Generative model backend", options=["huggingface_gpt-j", "openai_gpt-3.5 (requires OPENAI_API_KEY)"], index=0)
-    whisper_backend = st.selectbox("Audio transcription backend", options=["local_whisper (if installed)", "huggingface_whisper_api"], index=1)
+    model_choice = st.selectbox("Generative model backend", options=["huggingface_gpt-j", "openai_gpt-3.5"], index=0)
+    whisper_backend = st.selectbox("Audio transcription backend", options=["local_whisper", "huggingface_whisper_api"], index=1)
     top_k = st.slider("Retrieval top_k", min_value=1, max_value=10, value=TOP_K)
 
 # Initialize resources
