@@ -164,19 +164,32 @@ def call_hf_generation(hf_api_key: str, model: str, prompt: str, max_tokens: int
     return str(data)
 
 # Optional: OpenAI completion wrapper (if OPENAI_API_KEY present)
+from openai import OpenAI
+
 def call_openai_completion(openai_api_key: str, prompt: str, model: str = "gpt-3.5-turbo") -> str:
-    try:
-        import openai
-    except Exception:
-        raise RuntimeError("openai package not installed")
-    openai.api_key = openai_api_key
+    """
+    Call OpenAI Chat or Completion models using the new 1.x client.
+    """
+    client = OpenAI(api_key=openai_api_key)
+
     if model.startswith("gpt-3.5") or model.startswith("gpt-4"):
-        # chat completion
-        resp = openai.ChatCompletion.create(model=model, messages=[{"role":"user","content":prompt}], max_tokens=512)
-        return resp['choices'][0]['message']['content']
+        # Chat-based models
+        resp = client.chat.completions.create(
+            model=model,
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=512,
+        )
+        return resp.choices[0].message.content
+
     else:
-        resp = openai.Completion.create(model=model, prompt=prompt, max_tokens=512)
-        return resp['choices'][0]['text']
+        # Legacy completion models (e.g., "text-davinci-003")
+        resp = client.completions.create(
+            model=model,
+            prompt=prompt,
+            max_tokens=512,
+        )
+        return resp.choices[0].text
+
 
 # TTS via gTTS (returns bytes)
 def synthesize_tts_gtts(text: str, lang: str = 'en') -> bytes:
