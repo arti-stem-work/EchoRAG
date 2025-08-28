@@ -1,32 +1,43 @@
+# ============================================================
+# Streamlit AI App (Text + Audio Ingestion, RAG, TTS Output)
+# ============================================================
+
+# --- Patch sqlite BEFORE chromadb loads (fix for Streamlit Cloud) ---
+try:
+    __import__('pysqlite3')
+    import sys
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+except Exception:
+    # Fallback: if pysqlite3 not available, continue with system sqlite
+    pass
+
+# --- Python stdlib ---
 import os
 import io
 import tempfile
-import sys
 from typing import List, Dict, Any, Tuple
 
-
-# --- Workaround: force modern sqlite on hosts like Streamlit Cloud ---
-try:
-    __import__('pysqlite3')
-    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-except Exception:
-    pass
-
-
+# --- Core framework ---
 import streamlit as st
+
+# --- Embeddings & NLP ---
 from sentence_transformers import SentenceTransformer
+
+# --- Vector DB ---
 import chromadb
 from chromadb.config import Settings
+
+# --- Document processing ---
 import PyPDF2
 
-
+# --- Audio transcription ---
 try:
     import whisper
     HAS_WHISPER = True
 except Exception:
     HAS_WHISPER = False
 
-
+# --- External APIs ---
 import requests
 from gtts import gTTS
 
