@@ -1,11 +1,12 @@
 # Core framework
 streamlit>=1.35.0
 
+# Vector database (force duckdb backend, patch sqlite with pysqlite3)
+chromadb>=0.4.22
+pysqlite3-binary>=0.5.0
+
 # Text & embeddings
 sentence-transformers>=2.2.2
-
-# Vector database
-chromadb>=0.4.0
 
 # Document processing
 PyPDF2>=3.0.0
