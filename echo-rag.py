@@ -203,7 +203,17 @@ def synthesize_tts_gtts(text: str, lang: str = 'en') -> bytes:
 
 st.set_page_config(page_title="EchoRAG", layout="wide")
 # Centered title using Markdown and HTML
-st.markdown("<h1 style='text-align: center;'>ECHO-RAG</h1>", unsafe_allow_html=True)
+st.markdown("""
+    <h1 style='text-align: center;
+               color: #4CAF50;
+               font-family: Arial, sans-serif;
+               font-size: 60px;
+               padding: 20px 0;
+               border-bottom: 2px solid #4CAF50;
+               margin-bottom: 30px;'>
+        ECHO-RAG
+    </h1>
+    """, unsafe_allow_html=True)
 st.caption("Enterprise-minded prototype: text + audio ingestion → vector store → RAG → TTS audio response")
 
 # Sidebar: configuration
