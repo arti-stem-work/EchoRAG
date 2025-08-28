@@ -188,8 +188,8 @@ def synthesize_tts_gtts(text: str, lang: str = 'en') -> bytes:
 
 # ------------------------------ Streamlit App ------------------------------
 
-st.set_page_config(page_title="Multimodal RAG — Streamlit Demo", layout="wide")
-st.title("Multimodal Retrieval-Augmented Generation (RAG) — Streamlit Demo")
+st.set_page_config(page_title="EchoRAG", layout="wide")
+st.title("ECHO-RAG")
 st.caption("Enterprise-minded prototype: text + audio ingestion → vector store → RAG → TTS audio response")
 
 # Sidebar: configuration
