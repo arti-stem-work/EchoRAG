@@ -59,14 +59,17 @@ def init_embedding_model(model_name: str = EMBEDDING_MODEL):
     return SentenceTransformer(model_name)
 
 @st.cache_resource
-def init_chroma(persist_directory: str = None):
-    # Force duckdb backend → no sqlite dependency, works on Streamlit Cloud
-    chroma_settings = Settings(
-        chroma_db_impl="duckdb+parquet",
-        persist_directory=persist_directory
-    )
-    client = chromadb.Client(chroma_settings)
+def init_chroma(persist_dir: str = None):
+    """
+    Initialize ChromaDB client.
+    Uses PersistentClient if persist_dir is provided, else EphemeralClient.
+    """
+    if persist_dir:
+        client = chromadb.PersistentClient(path=persist_dir)
+    else:
+        client = chromadb.EphemeralClient()
     return client
+
 
     
 # Simple chunking: split on whitespace up to approx chunk_size words with overlap
