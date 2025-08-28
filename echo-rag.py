@@ -7,10 +7,10 @@ from typing import List, Dict, Any, Tuple
 
 # --- Workaround: force modern sqlite on hosts like Streamlit Cloud ---
 try:
-__import__('pysqlite3')
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+    __import__('pysqlite3')
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 except Exception:
-pass
+    pass
 
 
 import streamlit as st
@@ -21,10 +21,10 @@ import PyPDF2
 
 
 try:
-import whisper
-HAS_WHISPER = True
+    import whisper
+    HAS_WHISPER = True
 except Exception:
-HAS_WHISPER = False
+    HAS_WHISPER = False
 
 
 import requests
