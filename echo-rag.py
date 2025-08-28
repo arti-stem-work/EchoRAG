@@ -202,7 +202,8 @@ def synthesize_tts_gtts(text: str, lang: str = 'en') -> bytes:
 # ------------------------------ Streamlit App ------------------------------
 
 st.set_page_config(page_title="EchoRAG", layout="wide")
-st.title("ECHO-RAG")
+# Centered title using Markdown and HTML
+st.markdown("<h1 style='text-align: center;'>ECHO-RAG</h1>", unsafe_allow_html=True)
 st.caption("Enterprise-minded prototype: text + audio ingestion → vector store → RAG → TTS audio response")
 
 # Sidebar: configuration
