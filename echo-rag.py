@@ -45,18 +45,17 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 # ------------------------------ Utilities ------------------------------
 @st.cache_resource
 def init_embedding_model(model_name: str = EMBEDDING_MODEL):
-return SentenceTransformer(model_name)
-
+    return SentenceTransformer(model_name)
 
 @st.cache_resource
 def init_chroma(persist_directory: str = CHROMA_PERSIST_DIR):
-# Auto-detect environment: Streamlit Cloud often has old sqlite → fallback to in-memory
-if os.getenv("STREAMLIT_RUNTIME") == "1":
-persist_directory = None
-chroma_settings = Settings(chroma_db_impl="duckdb+parquet", persist_directory=persist_directory)
-client = chromadb.Client(chroma_settings)
-return client
-
+    # Auto-detect environment: Streamlit Cloud often has old sqlite → fallback to in-memory
+    if os.getenv("STREAMLIT_RUNTIME") == "1":
+        persist_directory = None
+    chroma_settings = Settings(chroma_db_impl="duckdb+parquet", persist_directory=persist_directory)
+    client = chromadb.Client(chroma_settings)
+    return client
+    
 # Simple chunking: split on whitespace up to approx chunk_size words with overlap
 def chunk_text(text: str, chunk_size_words: int = 250, overlap_words: int = 50) -> List[str]:
     words = text.split()
